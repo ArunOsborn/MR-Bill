@@ -6,7 +6,7 @@
 #
 # Created:     20/09/2021
 # Copyright:   (c) AOs Productions 2021 - 2021
-# Version:	   0.2
+# Version:	   0.2.1
 #-------------------------------------------------------------------------------
 import re
 with open("bill.txt") as file:
@@ -20,7 +20,7 @@ totalCost = 0
 for line in rawBill:
     if line[-1:] == "\n": # Removes new line characters
         line = line[:-1]
-    item = re.split(",| = ",line)
+    item = re.split(" *, *| *= *",line)
     try:
         totalCost += float(item[0])
         billList.append(item) # Processed bill (unused so far)

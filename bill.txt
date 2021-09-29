@@ -1,11 +1,11 @@
-shared = a,c,m,l,h
+shared   =            a,c,m,l,h
 cam = c,a,m
 0.85,cam
 0.69,cam
 0.85,c
 1.25,a
-0.39,c
-1.5,c,a,m,h,l
+0.39,cam
+1.5,cam  ,a,m,h,l
 2,a
 5,m
 1,c,a,m,h,l
