@@ -19,7 +19,8 @@ totalCost = 0
 for line in rawBill:
     if line[-1:] == "\n": # Removes new line characters
         line = line[:-1]
-    item = re.split(" *, *| *= *",line)
+    item = re.split(" *(?:,|=) *",line)
+    #print(item)
     try:
         itemCost = eval(item[0])
         totalCost += itemCost  # Eval used so calculations can be done directly on the input
