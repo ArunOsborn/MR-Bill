@@ -1,11 +1,11 @@
-shared   =            a,c,m,l,h
-cam = c,a,m#mawer
-   0.8     +0.05  ,cam
-0.69 # Peas,cam
+shared=a,c,m,l,h
+cam=c,a,m
+0.85,cam
+0.69,cam
 0.85,c
 1.25,a
 0.39,cam
-1.5,cam#cam mawer and arun,a,m,h,l
+1.5,cam,a,m,h,l
 2,a
 5,m
 1,c,a,m,h,l
@@ -24,4 +24,4 @@ cam = c,a,m#mawer
 7.60,shared
 7.90,shared
 2,a,m
-0.80-0.05,a
+0.85,a
