@@ -20,16 +20,23 @@ for line in rawBill:
     if line[-1:] == "\n": # Removes new line characters
         line = line[:-1]
     item = re.split(" *(?:,|=) *",line)
-    #print(item)
+
+    # Removes comments
+    for x in range(len(item)):
+        if "#" in item[x]:
+            item[x] = item[x][:item[x].index("#")]
     try:
         itemCost = eval(item[0])
         totalCost += itemCost  # Eval used so calculations can be done directly on the input
         billList.append(item)  # Processed bill (unused so far)
-        if item[1] in aliases:  # If alias found, it must be split into seperate people
-            rawItem = [item[0]]  # Makes new item with all people individually noted
-            for person in aliases[item[1]]:
-                rawItem.append(person)
-            item = rawItem
+        expandedItem = [item[0]]  # Makes new item where aliases are changed to the individual people
+        for x in range(1,len(item)):
+            if item[x] in aliases:  # If alias found, it must be split into separate people
+                for person in aliases[item[1]]:
+                    expandedItem.append(person)
+            else:
+                expandedItem.append(item[x])
+        item = expandedItem
         for x in range(1, len(item)):
             if item[x] not in people:  # If person has been noted down before
                 people[item[x]] = {"total": 0, "items": []}

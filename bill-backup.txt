@@ -1,0 +1,27 @@
+shared   =            a,c,m,l,h
+cam = c,a,m#mawer
+   0.8     +0.05  ,cam
+0.69,cam
+0.85,c
+1.25,a
+0.39,cam
+1.5,cam#call,a,m,h,l
+2,a
+5,m
+1,c,a,m,h,l
+0.4,shared
+4,m
+13.50,c
+1.30,c,a,m
+2,shared
+1.49,m
+2,m
+1.6,c
+0.95,c
+1.9,c
+1.5,shared
+0.85,c,a,m
+7.60,shared
+7.90,shared
+2,a,m
+0.80-0.05,a
