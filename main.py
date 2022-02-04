@@ -48,7 +48,7 @@ for line in rawBill:
 
 
 for person in people:
-    print(person+"'s Total:"+"£"+str(round(people[person]["total"],2)))
+    print(person+"'s Total: "+"£"+str(round(people[person]["total"],2)))
 
 print("--------------------")
-print("Grand Total:" + str(round(totalCost,4)))
+print("Grand Total: " +"£"+str(round(totalCost,4)))
