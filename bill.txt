@@ -1,12 +1,6 @@
-<<<<<<< Updated upstream
 shared   =  a,c,m,l,h
 cam = c#cam,a#arun,m# mawer
  0.8 +0.05 ,cam
-=======
-cam = c,a,m#mawer
-shared = cam,l,h
-0.8 +0.05  ,cam
->>>>>>> Stashed changes
 0.69 # Peas,cam
 0.85,c
 1.25,a
