@@ -5,7 +5,7 @@
 # Author:      Arun Osborn
 #
 # Created:     20/09/2021
-# Copyright:   (c) AOs Productions 2021 - 2021
+# Copyright:   (c) AOs Productions 2021 - 2022
 # Version:	   0.2.1
 #-------------------------------------------------------------------------------
 import re
