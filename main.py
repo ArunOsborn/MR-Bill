@@ -44,6 +44,8 @@ for line in rawBill:
             people[item[x]]["items"].append(item)  # Adds item for reference
     except NameError:  # Value assumed to be an alias indicator
         aliases[item[0]] = item[1:]  # Adds dictionary about the alias to the list of aliases
+    except SyntaxError as e:
+        print(str(e) + "on line containing \""+line+"\"")
 
 
 

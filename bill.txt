@@ -1,23 +1,89 @@
 shared=a,c,m,l,h
 guts=a,c,m,l
-2.15,c
-1.69,l
-1.29,l
-8.99,a
-1.25,a
-0.99,a
-2.99,c
-0.75,l
-0.29,c
-0.89,l
-1.09,l
-1.29,a
-1.49,l
-0.79,a
-0.79,c
-0.79,m
-0.82,l
-1.15,guts
-0.85,a
-2.29,c
-0.89,l
+oven=m,a,l
+0.31,m#Tomato puree
+1.5,m#dr pepper
+0.79,a,a,m#Mushrooms
+0.39,m#Bolognese sauce
+1.6,m#Paracetamol
+9.75,shared#Toilet tissue
+2.83,a#Tuna
+1.5,m#Brownie Bites
+1.70,a,m,l#Blue milk
+1.35,a,m#Flora butter
+3.25,m#Chicken pie
+3.6,m#Innocent juice
+3.5,a#Mature cheddar
+2.25,c#Muller yogurt
+0.5,m#Tiny pizza
+3.75,m#Chicken thigh fillets
+1.75,a#Pizza fun guy
+1.45,a#Mixed veg pizza
+2,c#Chicken pies
+0.67,m#Thin pepperoni pizza
+1.1,c#Toffe vanilla icecream
+4.5,a,m#Fish fingers
+2.75,oven#Chunky chips
+1,m#Frozen broccoli
+2.5,a,a,m#Cod fish finger
+4.4,m#Birdseye beef burgers
+2.5,m#Chicken thighs
+1.1,c#Icecream cones
+1,m#Meat feast pizza
+1.3,c#Hash browns
+2.95,c#Itsu dumplings
+2,m#Richmond pork sausages
+3.5,c#Pepsi max cans
+2.25,a#Belvita breakfast
+1.45,m#Vegitable stock cubes
+1,c#Double blade razors
+0.9,a#Pesto
+0.12,m#Onion
+1.75,c#Tumble dryer sheets
+0.7,a#Quick cook pasta
+1.5,m#Toothpaste
+0.98,m#Chocolate
+0.96,a,m#Peppers
+0.9,m#Tomato chilli pesto
+1.6,a,m#Chopped Tomatoes
+0.45,c#Long grain rice
+1.6,shared#Handwash
+1.5,m#Fanta
+1.2,c#Lychee
+1.75,a#Coconut shower gel
+3.5,shared#Kitchen towels
+1.75,shared#Baking paper
+5.5,guts#Big nutella
+5.75,a#Weetabix
+2.5,shared#Mayonaise
+1.2,m#Baked beans
+1.5,m#Flapjack bites
+1.1,a,c,l#White bread
+0.35,l#Rich tea biscuits
+3,shared#Dishwasher tablets
+2.5,m#Chocolate
+1.6,shared#Magnolia handwash
+0.95,a,m#English muffins
+1.5,m#Quavers
+2,a#HP sauce
+1.6,m#Bagels
+5,c#Chocolate egg
+1.55,a#Brown rice
+1.15,a#Oats
+1.3,c#Body scrubber
+1.25,shared#Tin foil
+2.25,c#More razors
+1.2,a#Guava juice
+3,a,m,l,h#Tomato ketchup
+5.75,m#Wine
+
+5,m#cider
+3.5,a#cheryos
+1.67,a#Rockface
+9,shared#Coke cans
+1.49,m#Nescafe coffee sachets
+2.5*2,shared#Washing machine cleaner
+1.5*2,m#robinsons squash
+3.5,m#Frozen berries
+0.85,m#Korma
+1.6,m#Korma chicken can
