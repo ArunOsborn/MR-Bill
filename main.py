@@ -64,12 +64,14 @@ def displayTotals():
     print("--------------------")
     print("Grand Total: " +"£"+str(round(totalCost,4)))
 
-def displayBill():
+def getBillAsText():
+    formattedBlock = ""
     for line in billList:
         formattedLine = line[0]
         for x in range(1,len(line)):
             formattedLine += "," + line[x]
-        print(formattedLine)
+        formattedBlock += formattedLine + "\n"
+    return formattedBlock
 
 loadBill()
 displayTotals()
@@ -87,4 +89,12 @@ while command!="exit":
         print("bill.txt was reloaded\n"
               "Type \"Totals\" to display the total again")
     elif command == "list":
-        displayBill()
+        print(getBillAsText())
+    elif command.startswith("save"):
+        path = command[len("save "):]
+        if len(path)>4 or path[-4] != ".txt":
+            path += ".txt"
+        file = open(path,"w")
+        file.writelines(getBillAsText())
+        file.close()
+        print(f"File saved as {path}")
