@@ -6,7 +6,7 @@
 #
 # Created:     20/09/2021
 # Copyright:   (c) AOs Productions 2021 - 2022
-# Version:	   0.4.0
+# Version:	   1.0.0
 #-------------------------------------------------------------------------------
 import re
 
@@ -14,12 +14,10 @@ people = {}
 billList = []
 totalCost = 0
 
-def loadBill():
+def processBill(rawBill):
     global people
     global totalCost
     global billList
-    with open("bill.txt") as file:
-        rawBill = file.readlines()
 
     people = {}
     billList = []
@@ -73,28 +71,34 @@ def getBillAsText():
         formattedBlock += formattedLine + "\n"
     return formattedBlock
 
-loadBill()
-displayTotals()
-command = ""
-while command!="exit":
-    command = input("Command: ").lower()
-    if "help" in command:
-        print("Type \"Exit\" to quit the program")
-        print("Type \"Totals\" to display the total again")
-        print("Type \"Load\" to load the data from the bill.txt file")
-    elif "total" in command:
-        displayTotals()
-    elif command == "load":
-        loadBill()
-        print("bill.txt was reloaded\n"
-              "Type \"Totals\" to display the total again")
-    elif command == "list":
-        print(getBillAsText())
-    elif command.startswith("save"):
-        path = command[len("save "):]
-        if len(path)>4 or path[-4] != ".txt":
-            path += ".txt"
-        file = open(path,"w")
-        file.writelines(getBillAsText())
-        file.close()
-        print(f"File saved as {path}")
+def openText(path):
+    with open(path) as file:
+        rawBill = file.readlines()
+    return rawBill
+
+if __name__ == '__main__':
+    processBill(openText("bill.txt"))
+    displayTotals()
+    command = ""
+    while command!="exit":
+        command = input("Command: ").lower()
+        if "help" in command:
+            print("Type \"Exit\" to quit the program")
+            print("Type \"Totals\" to display the total again")
+            print("Type \"Load\" to load the data from the bill.txt file")
+        elif "total" in command:
+            displayTotals()
+        elif command == "load":
+            processBill(openText("bill.txt"))
+            print("bill.txt was reloaded\n"
+                  "Type \"Totals\" to display the total again")
+        elif command == "list":
+            print(getBillAsText())
+        elif command.startswith("save"):
+            path = command[len("save "):]
+            if len(path)>4 or path[-4] != ".txt":
+                path += ".txt"
+            file = open(path,"w")
+            file.writelines(getBillAsText())
+            file.close()
+            print(f"File saved as {path}")
