@@ -9,19 +9,23 @@
 # Version:	   1.0.0
 #-------------------------------------------------------------------------------
 import re
+import json
 
 people = {}
 billList = []
 totalCost = 0
+items = []
 
 def processBill(rawBill):
     global people
     global totalCost
     global billList
+    global items
 
     people = {}
     billList = []
     aliases = {}
+    items = []
     totalCost = 0
     for line in rawBill:
         if line != "\n":
@@ -45,11 +49,12 @@ def processBill(rawBill):
                     else:
                         expandedItem.append(item[x])
                 item = expandedItem
+                items.append({"cost":item[0],"people":item[1:]})
                 for x in range(1, len(item)):
                     if item[x] not in people:  # If person has been noted down before
                         people[item[x]] = {"total": 0, "items": []}
                     people[item[x]]["total"] += itemCost / (len(item) - 1)  # Adds money
-                    people[item[x]]["items"].append(item)  # Adds item for reference
+                    people[item[x]]["items"].append(len(items))  # Adds the last item in the list for reference
             except NameError:  # Value assumed to be an alias indicator
                 aliases[item[0]] = item[1:]  # Adds dictionary about the alias to the list of aliases
             except SyntaxError as e:
@@ -72,33 +77,60 @@ def getBillAsText():
     return formattedBlock
 
 def openText(path):
+    """Takes the path of the .txt file and returns the contents of the file as rawBill for processing"""
     with open(path) as file:
         rawBill = file.readlines()
     return rawBill
 
+def openString(string):
+    """Takes string input of bill and returns rawBill for processing"""
+    rawBill = string.split("\n")
+    return rawBill
+
 if __name__ == '__main__':
+    # Displays bill.txt by default
     processBill(openText("bill.txt"))
     displayTotals()
+
+    # Console
     command = ""
     while command!="exit":
         command = input("Command: ").lower()
+
         if "help" in command:
             print("Type \"Exit\" to quit the program")
             print("Type \"Totals\" to display the total again")
             print("Type \"Load\" to load the data from the bill.txt file")
+
         elif "total" in command:
             displayTotals()
-        elif command == "load":
-            processBill(openText("bill.txt"))
-            print("bill.txt was reloaded\n"
+
+        elif command.startswith("load"):
+            if command == "load":
+                path = "bill.txt"
+            else:
+                path = command[len("load "):]
+                if len(path)<4 or path[-4] != ".txt":
+                    path += ".txt"
+            processBill(openText(path))
+            print(f"{path} was loaded\n"
                   "Type \"Totals\" to display the total again")
+
         elif command == "list":
             print(getBillAsText())
+
+        elif command == "people":
+            print(people)
+
         elif command.startswith("save"):
-            path = command[len("save "):]
-            if len(path)>4 or path[-4] != ".txt":
-                path += ".txt"
-            file = open(path,"w")
-            file.writelines(getBillAsText())
-            file.close()
+            if command == "save":
+                path = "bill-auto.json"
+            else:
+                path = command[len("save "):]
+                if len(path)<5 or path[-5] != ".json":
+                    path += ".json"
+
+            save = {"people":people,"items":items}
+            with open(path, "w", encoding='utf-8') as file:
+                json.dump(save, file, indent=4)
             print(f"File saved as {path}")
