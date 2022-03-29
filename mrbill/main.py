@@ -12,21 +12,23 @@ import errno
 import re
 import json
 
-class biller():
+class Bill():
     people = {}
     billList = []
     totalCost = 0
     items = []
+    rawBill = None
 
-    def __init__(self,string=None,path=None):
-        if string != None:
-            self.openString(string)
+    def __init__(self,text=None,path=None):
+        if text != None:
+            self.rawBill = self.openString(text)
         elif path != None:
-            self.openText(path)
+            self.rawBill = self.openText(path)
         else:
             print("Please enter a string or a path to a text file")
+        self.processBill()
 
-    def processBill(rawBill):
+    def processBill(self):
         global people
         global totalCost
         global billList
@@ -37,8 +39,8 @@ class biller():
         aliases = {}
         items = []
         totalCost = 0
-        for line in rawBill:
-            if line != "\n":
+        for line in self.rawBill:
+            if len(line) > 1:
                 if line[-1:] == "\n": # Removes new line characters
                     line = line[:-1]
                 item = re.split(" *(?:,|=) *",line)
@@ -71,11 +73,13 @@ class biller():
                     print(str(e) + "on line containing \""+line+"\"")
 
     def displayTotals(self):
+        print("--------------------")
         for person in people:
             print(person+"'s Total: "+"£"+str(round(people[person]["total"],2)))
 
         print("--------------------")
         print("Grand Total: " +"£"+str(round(totalCost,4)))
+        print("--------------------")
 
     def getBillAsText(self):
         formattedBlock = ""
@@ -99,10 +103,10 @@ class biller():
 
 if __name__ == '__main__':
     # Displays bill.txt by default
-    biller = biller(path="bill.txt")
-    biller.processBill()
-    processBill(openString("shared=a,c,m,l,h\nguts=a,c,m,l\noven=m,a,l\n0.31,m#Tomato puree\n1.5,m#dr pepper\n0.79,a,a,m#Mushrooms\n"))
-    displayTotals()
+    biller = Bill(path="bill.txt")
+    biller.displayTotals()
+    biller = Bill(text="shared=a,c,m,l,h\nguts=a,c,m,l\noven=m,a,l\n0.31,m#Tomato puree\n1.5,m#dr pepper\n0.79,a,a,m#Mushrooms\n")
+    biller.displayTotals()
 
     # Console
     command = ""
@@ -113,9 +117,11 @@ if __name__ == '__main__':
             print("Type \"Exit\" to quit the program")
             print("Type \"Totals\" to display the total again")
             print("Type \"Load\" to load the data from the bill.txt file")
+            print("Type \"Input\" to load the inputted data after the command")
+            print("Type \"Save\" to save the data as a json file. (This system currently can't read this format)")
 
         elif "total" in command:
-            displayTotals()
+            biller.displayTotals()
 
         elif command.startswith("load"):
             if command == "load":
@@ -124,15 +130,24 @@ if __name__ == '__main__':
                 path = command[len("load "):]
                 if len(path)<4 or path[-4] != ".txt":
                     path += ".txt"
-            processBill(openText(path))
+            biller = Bill(path=path)
             print(f"{path} was loaded\n"
                   "Type \"Totals\" to display the total again")
 
+        elif command.startswith("input"):
+            text = command[len("input "):]
+            biller = Bill(text=text)
+            print(f"{text} was loaded\n"
+                  "Type \"Totals\" to display the total again")
+
         elif command == "list":
-            print(getBillAsText())
+            print(biller.getBillAsText())
 
         elif command == "people":
             print(people)
+
+        elif command == "items":
+            print(items)
 
         elif command.startswith("save"):
             if command == "save":
