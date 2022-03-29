@@ -12,7 +12,7 @@ import errno
 import re
 import json
 
-class bill():
+class biller():
     people = {}
     billList = []
     totalCost = 0
@@ -99,7 +99,7 @@ class bill():
 
 if __name__ == '__main__':
     # Displays bill.txt by default
-    biller = bill(path="bill.txt")
+    biller = biller(path="bill.txt")
     biller.processBill()
     processBill(openString("shared=a,c,m,l,h\nguts=a,c,m,l\noven=m,a,l\n0.31,m#Tomato puree\n1.5,m#dr pepper\n0.79,a,a,m#Mushrooms\n"))
     displayTotals()
