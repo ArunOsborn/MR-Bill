@@ -72,14 +72,16 @@ class Bill():
                 except SyntaxError as e:
                     print(str(e) + "on line containing \""+line+"\"")
 
-    def displayTotals(self):
-        print("--------------------")
+    def getTotalsPrintout(self):
+        printout= ""
+        printout+="--------------------\n"
         for person in people:
-            print(person+"'s Total: "+"£"+str(round(people[person]["total"],2)))
+            printout += person+"'s Total: "+"£"+str(round(people[person]["total"],2)) + "\n"
 
-        print("--------------------")
-        print("Grand Total: " +"£"+str(round(totalCost,4)))
-        print("--------------------")
+        printout+="--------------------\n"
+        printout += "Grand Total: " +"£"+str(round(totalCost,4)) + "\n"
+        printout+="--------------------"
+        return printout
 
     def getBillAsText(self):
         formattedBlock = ""
@@ -104,9 +106,9 @@ class Bill():
 if __name__ == '__main__':
     # Displays bill.txt by default
     biller = Bill(path="bill.txt")
-    biller.displayTotals()
+    print(biller.getTotalsPrintout())
     biller = Bill(text="shared=a,c,m,l,h\nguts=a,c,m,l\noven=m,a,l\n0.31,m#Tomato puree\n1.5,m#dr pepper\n0.79,a,a,m#Mushrooms\n")
-    biller.displayTotals()
+    print(biller.getTotalsPrintout())
 
     # Console
     command = ""
