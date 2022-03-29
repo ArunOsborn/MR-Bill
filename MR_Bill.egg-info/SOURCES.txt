@@ -1,0 +1,7 @@
+README.md
+setup.py
+MR_Bill.egg-info/PKG-INFO
+MR_Bill.egg-info/SOURCES.txt
+MR_Bill.egg-info/dependency_links.txt
+MR_Bill.egg-info/top_level.txt
+mrbill/main.py

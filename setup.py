@@ -7,5 +7,5 @@ setup(
    author='Arun Osborn',
    author_email='arunosborn@gmail.com',
    packages=['mrbill'],
-   install_requires=['re', 'json'], #External dependencies
+   install_requires=[], #External dependencies
 )
