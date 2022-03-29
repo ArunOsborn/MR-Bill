@@ -90,6 +90,7 @@ def openString(string):
 if __name__ == '__main__':
     # Displays bill.txt by default
     processBill(openText("bill.txt"))
+    processBill(openString("shared=a,c,m,l,h\nguts=a,c,m,l\noven=m,a,l\n0.31,m#Tomato puree\n1.5,m#dr pepper\n0.79,a,a,m#Mushrooms\n"))
     displayTotals()
 
     # Console
