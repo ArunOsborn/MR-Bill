@@ -12,13 +12,9 @@ import re
 import json
 
 class Bill():
-    people = {}
-    billList = []
-    totalCost = 0
-    items = []
-    rawBill = None
 
     def __init__(self,text=None,path=None):
+
         if text != None:
             self.rawBill = self.openString(text)
         elif path != None:
@@ -28,16 +24,12 @@ class Bill():
         self.processBill()
 
     def processBill(self):
-        global people
-        global totalCost
-        global billList
-        global items
 
-        people = {}
-        billList = []
-        aliases = {}
-        items = []
-        totalCost = 0
+        self.people = {}
+        self.billList = []
+        self.aliases = {}
+        self.items = []
+        self.totalCost = 0
         for line in self.rawBill:
             if len(line) > 1:
                 if line[-1:] == "\n": # Removes new line characters
@@ -50,41 +42,43 @@ class Bill():
                         item[x] = item[x][:item[x].index("#")]
                 try:
                     itemCost = eval(item[0])
-                    totalCost += itemCost  # Eval used so calculations can be done directly on the input
-                    billList.append(item)  # Processed bill (unused so far)
+                    self.totalCost += itemCost  # Eval used so calculations can be done directly on the input
+                    self.billList.append(item)  # Processed bill (unused so far)
                     expandedItem = [item[0]]  # Makes new item where aliases are changed to the individual people
                     for x in range(1,len(item)):
-                        if item[x] in aliases:  # If alias found, it must be split into separate people
-                            for person in aliases[item[1]]:
+                        if item[x] in self.aliases:  # If alias found, it must be split into separate people
+                            for person in self.aliases[item[1]]:
                                 expandedItem.append(person)
                         else:
                             expandedItem.append(item[x])
                     item = expandedItem
-                    items.append({"cost":item[0],"people":item[1:]})
+                    self.items.append({"cost":item[0],"people":item[1:]})
                     for x in range(1, len(item)):
-                        if item[x] not in people:  # If person has been noted down before
-                            people[item[x]] = {"total": 0, "items": []}
-                        people[item[x]]["total"] += itemCost / (len(item) - 1)  # Adds money
-                        people[item[x]]["items"].append(len(items))  # Adds the last item in the list for reference
+                        if item[x] not in self.people:  # If person has been noted down before
+                            self.people[item[x]] = {"total": 0, "items": []}
+                        self.people[item[x]]["total"] += itemCost / (len(item) - 1)  # Adds money
+                        self.people[item[x]]["items"].append(len(self.items))  # Adds the last item in the list for reference
                 except NameError:  # Value assumed to be an alias indicator
-                    aliases[item[0]] = item[1:]  # Adds dictionary about the alias to the list of aliases
+                    self.aliases[item[0]] = item[1:]  # Adds dictionary about the alias to the list of aliases
                 except SyntaxError as e:
                     print(str(e) + "on line containing \""+line+"\"")
+                    if line != "\n":
+                        return None
 
     def getTotalsPrintout(self):
         printout= ""
         printout+="--------------------\n"
-        for person in people:
-            printout += person+"'s Total: "+"£"+str(round(people[person]["total"],2)) + "\n"
+        for person in self.people:
+            printout += person+"'s Total: "+"£"+str(round(self.people[person]["total"],2)) + "\n"
 
         printout+="--------------------\n"
-        printout += "Grand Total: " +"£"+str(round(totalCost,4)) + "\n"
+        printout += "Grand Total: " +"£"+str(round(self.totalCost,4)) + "\n"
         printout+="--------------------"
         return printout
 
     def getBillAsText(self):
         formattedBlock = ""
-        for line in billList:
+        for line in self.billList:
             formattedLine = line[0]
             for x in range(1,len(line)):
                 formattedLine += "," + line[x]
@@ -122,7 +116,7 @@ if __name__ == '__main__':
             print("Type \"Save\" to save the data as a json file. (This system currently can't read this format)")
 
         elif "total" in command:
-            biller.displayTotals()
+            print(biller.getTotalsPrintout())
 
         elif command.startswith("load"):
             if command == "load":
@@ -145,10 +139,10 @@ if __name__ == '__main__':
             print(biller.getBillAsText())
 
         elif command == "people":
-            print(people)
+            print(biller.people)
 
         elif command == "items":
-            print(items)
+            print(biller.items)
 
         elif command.startswith("save"):
             if command == "save":
@@ -158,7 +152,7 @@ if __name__ == '__main__':
                 if len(path)<5 or path[-5] != ".json":
                     path += ".json"
 
-            save = {"people":people,"items":items}
+            save = {"people":biller.people,"items":biller.items}
             with open(path, "w", encoding='utf-8') as file:
                 json.dump(save, file, indent=4)
             print(f"File saved as {path}")
