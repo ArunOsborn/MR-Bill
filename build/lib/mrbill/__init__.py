@@ -1,2 +1,1 @@
-import main
-Bill = main.Bill()
+from mrbill import Bill
