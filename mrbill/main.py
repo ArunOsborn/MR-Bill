@@ -8,7 +8,6 @@
 # Copyright:   (c) AOs Productions 2021 - 2022
 # Version:	   1.0.0
 #-------------------------------------------------------------------------------
-import errno
 import re
 import json
 
