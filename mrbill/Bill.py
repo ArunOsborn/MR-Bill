@@ -96,10 +96,8 @@ class Bill():
 
 if __name__ == '__main__':
     # Displays bill.txt by default
-    biller = Bill(path="bill.txt")
-    print(biller.getTotalsPrintout())
-    biller = Bill(text="shared=a,c,m,l,h\nguts=a,c,m,l\noven=m,a,l\n0.31,m#Tomato puree\n1.5,m#dr pepper\n0.79,a,a,m#Mushrooms\n")
-    print(biller.getTotalsPrintout())
+    bill = Bill(path="bill.txt")
+    print(bill.getTotalsPrintout())
 
     # Console
     command = ""
@@ -114,7 +112,7 @@ if __name__ == '__main__':
             print("Type \"Save\" to save the data as a json file. (This system currently can't read this format)")
 
         elif "total" in command:
-            print(biller.getTotalsPrintout())
+            print(bill.getTotalsPrintout())
 
         elif command.startswith("load"):
             if command == "load":
@@ -123,24 +121,24 @@ if __name__ == '__main__':
                 path = command[len("load "):]
                 if len(path)<4 or path[-4] != ".txt":
                     path += ".txt"
-            biller = Bill(path=path)
+            bill = Bill(path=path)
             print(f"{path} was loaded\n"
                   "Type \"Totals\" to display the total again")
 
         elif command.startswith("input"):
             text = command[len("input "):]
-            biller = Bill(text=text)
+            bill = Bill(text=text)
             print(f"{text} was loaded\n"
                   "Type \"Totals\" to display the total again")
 
         elif command == "list":
-            print(biller.getBillAsText())
+            print(bill.getBillAsText())
 
         elif command == "people":
-            print(biller.people)
+            print(bill.people)
 
         elif command == "items":
-            print(biller.items)
+            print(bill.items)
 
         elif command.startswith("save"):
             if command == "save":
@@ -150,7 +148,7 @@ if __name__ == '__main__':
                 if len(path)<5 or path[-5] != ".json":
                     path += ".json"
 
-            save = {"people":biller.people,"items":biller.items}
+            save = {"people":bill.people,"items":bill.items}
             with open(path, "w", encoding='utf-8') as file:
                 json.dump(save, file, indent=4)
             print(f"File saved as {path}")
