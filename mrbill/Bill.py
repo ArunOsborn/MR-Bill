@@ -10,6 +10,7 @@
 #-------------------------------------------------------------------------------
 import re
 import json
+import requests
 
 class Bill():
 
@@ -62,6 +63,8 @@ class Bill():
                     self.aliases[item[0]] = item[1:]  # Adds dictionary about the alias to the list of aliases
                 except SyntaxError as e:
                     print(str(e) + "on line containing \""+line+"\"")
+                    if line != "\n":
+                        return None
 
     def getTotalsPrintout(self):
         printout= ""
@@ -85,8 +88,15 @@ class Bill():
 
     def openText(self,path):
         """Takes the path of the .txt file and returns the contents of the file as rawBill for processing"""
-        with open(path) as file:
-            rawBill = file.readlines()
+        print(path)
+        if path.startswith("https"):
+            file = requests.get(path).content
+            print(type(file))
+            print(file.decode())
+            return self.openString(file.decode())
+        else:
+            with open(path) as file:
+                rawBill = file.readlines()
         return rawBill
 
     def openString(self,string):
