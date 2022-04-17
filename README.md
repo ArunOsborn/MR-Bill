@@ -3,7 +3,9 @@ Recently converted into a python module, MR-Bill is a simple program for splitti
 
 # To Use
 Go to the folder named `mrbill`
-In `bill.txt`
+
+Open `bill.txt`
+
 ## Basics
 - Write [price],[names of people who want this item (seperated with commas)]
 - Run Bill.py and view the output
