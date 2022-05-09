@@ -67,13 +67,16 @@ class Bill():
                         return None
 
     def getTotalsPrintout(self):
+        def moneyFormat(amount):
+            result = "£{:,.2f}".format(amount)
+            return result
         printout= ""
         printout+="--------------------\n"
         for person in self.people:
-            printout += person+"'s Total: "+"£"+str(round(self.people[person]["total"],2)) + "\n"
+            printout += person+"'s Total: "+moneyFormat(self.people[person]["total"]) + "\n"
 
         printout+="--------------------\n"
-        printout += "Grand Total: " +"£"+str(round(self.totalCost,4)) + "\n"
+        printout += "Grand Total: " +moneyFormat(self.totalCost) + "\n"
         printout+="--------------------"
         return printout
 
